@@ -39,6 +39,8 @@ def plan(container, length, width, height, weight, max_layers=None, rotate=False
         raise ValueError("missing: " + ", ".join(missing) + " (this tool does not estimate)")
 
     box = CONTAINERS[container]
+    # whole millimetres / kilograms - keep the arithmetic integral
+    length, width, height, weight = int(length), int(width), int(height), int(weight)
     per_layer_straight = (box["L"] // length) * (box["W"] // width)
     per_layer_rotated = (box["L"] // width) * (box["W"] // length)
     per_layer = max(per_layer_straight, per_layer_rotated) if rotate else per_layer_straight
